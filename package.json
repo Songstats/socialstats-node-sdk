@@ -1,0 +1,24 @@
+{
+  "name": "socialstats-node-sdk",
+  "version": "0.1.0",
+  "description": "Node.js SDK for the Socialstats Enterprise API",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "socialstats",
+    "sdk",
+    "api",
+    "enterprise",
+    "node"
+  ],
+  "license": "MIT"
+}

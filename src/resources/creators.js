@@ -1,0 +1,75 @@
+import { ResourceAPI, requireParam } from "./base.js";
+
+function withCreatorIdentifier(params = {}) {
+  const query = { ...params };
+  requireParam(query, "socialstats_creator_id");
+  return query;
+}
+
+export class CreatorsAPI extends ResourceAPI {
+  info(params = {}) {
+    return this._get("creators/info", { params: withCreatorIdentifier(params) });
+  }
+
+  stats(params = {}) {
+    return this._get("creators/stats", { params: withCreatorIdentifier(params) });
+  }
+
+  historicStats(params = {}) {
+    return this._get("creators/historic_stats", { params: withCreatorIdentifier(params) });
+  }
+
+  audience(params = {}) {
+    return this._get("creators/audience", { params: withCreatorIdentifier(params) });
+  }
+
+  audienceDetails({ country_code, ...params } = {}) {
+    if (!country_code) {
+      throw new Error("country_code is required");
+    }
+
+    const query = withCreatorIdentifier(params);
+    query.country_code = country_code;
+    return this._get("creators/audience/details", { params: query });
+  }
+
+  activities(params = {}) {
+    return this._get("creators/activities", { params: withCreatorIdentifier(params) });
+  }
+
+  content(params = {}) {
+    return this._get("creators/content", { params: withCreatorIdentifier(params) });
+  }
+
+  topPosts(params = {}) {
+    return this._get("creators/top_posts", { params: withCreatorIdentifier(params) });
+  }
+
+  search({ q, ...params } = {}) {
+    if (!q) {
+      throw new Error("q is required");
+    }
+
+    return this._get("creators/search", { params: { q, ...params } });
+  }
+
+  addLinkRequest({ link, ...params } = {}) {
+    if (!link) {
+      throw new Error("link is required");
+    }
+
+    const query = withCreatorIdentifier(params);
+    query.link = link;
+    return this._post("creators/link_request", { params: query });
+  }
+
+  removeLinkRequest({ link, ...params } = {}) {
+    if (!link) {
+      throw new Error("link is required");
+    }
+
+    const query = withCreatorIdentifier(params);
+    query.link = link;
+    return this._delete("creators/link_request", { params: query });
+  }
+}
