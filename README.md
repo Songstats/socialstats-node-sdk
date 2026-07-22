@@ -2,7 +2,7 @@
 
 Official Node.js client for the **Socialstats Enterprise API**.
 
-API Documentation: https://docs.socialstats.com
+API Documentation: https://developers.stats.company/socialstats
 API Key Access: Please contact api@socialstats.com
 
 ---
