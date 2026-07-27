@@ -10,6 +10,11 @@ function withPostIdentifier(params = {}) {
   return query;
 }
 
+function authorizedPath(params, action) {
+  const sourceId = params.source_id;
+  return `posts/authorized/${encodeURIComponent(sourceId)}/${action}`;
+}
+
 export class PostsAPI extends ResourceAPI {
   stats(params = {}) {
     return this._get("posts/stats", { params: withPostIdentifier(params) });
@@ -17,5 +22,15 @@ export class PostsAPI extends ResourceAPI {
 
   historicStats(params = {}) {
     return this._get("posts/historic_stats", { params: withPostIdentifier(params) });
+  }
+
+  authorizedStats(params = {}) {
+    const query = withPostIdentifier(params);
+    return this._get(authorizedPath(query, "stats"), { params: query });
+  }
+
+  authorizedHistoricStats(params = {}) {
+    const query = withPostIdentifier(params);
+    return this._get(authorizedPath(query, "historic_stats"), { params: query });
   }
 }

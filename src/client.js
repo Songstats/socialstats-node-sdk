@@ -1,5 +1,5 @@
 import { SocialstatsHTTPClient } from "./http.js";
-import { CreatorsAPI, InfoAPI, PostsAPI } from "./resources/index.js";
+import { CreatorsAPI, InfoAPI, OAuthAPI, PostsAPI } from "./resources/index.js";
 
 export class SocialstatsClient {
   constructor({
@@ -20,6 +20,7 @@ export class SocialstatsClient {
     this.info = new InfoAPI(this._http);
     this.creators = new CreatorsAPI(this._http);
     this.posts = new PostsAPI(this._http);
+    this.oauth = new OAuthAPI(this._http);
   }
 
   async close() {

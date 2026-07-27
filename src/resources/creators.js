@@ -41,6 +41,22 @@ export class CreatorsAPI extends ResourceAPI {
     return this._get("creators/content", { params: withCreatorIdentifier(params) });
   }
 
+  authorizedStats(params = {}) {
+    return this._get("creators/authorized/stats", { params: withCreatorIdentifier(params) });
+  }
+
+  authorizedHistoricStats(params = {}) {
+    return this._get("creators/authorized/historic_stats", { params: withCreatorIdentifier(params) });
+  }
+
+  authorizedAudience(params = {}) {
+    return this._get("creators/authorized/audience", { params: withCreatorIdentifier(params) });
+  }
+
+  authorizedContent(params = {}) {
+    return this._get("creators/authorized/content", { params: withCreatorIdentifier(params) });
+  }
+
   topPosts(params = {}) {
     return this._get("creators/top_posts", { params: withCreatorIdentifier(params) });
   }

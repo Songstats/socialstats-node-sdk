@@ -56,6 +56,14 @@ const postStats = await client.posts.stats({
   source_id: "tiktok",
   post_id: "7654234001833610518",
 });
+
+// Start and poll a creator authorization
+const authorization = await client.oauth.create({
+  socialstats_creator_id: "d3rvjgk2",
+  source_id: "youtube",
+  return_url: "https://customer.example.com/socialstats/oauth-return",
+});
+const authorizationStatus = await client.oauth.attemptStatus(authorization.state_token);
 ```
 
 ---
@@ -75,6 +83,7 @@ We recommend storing your key securely in environment variables:
 - `client.info`
 - `client.creators`
 - `client.posts`
+- `client.oauth`
 
 ---
 
