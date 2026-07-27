@@ -1,8 +1,8 @@
-import { ResourceAPI, requireParam } from "./base.js";
+import { CREATOR_IDENTIFIER_KEYS, ResourceAPI, requireAnyIdentifier } from "./base.js";
 
 function withCreatorIdentifier(params = {}) {
   const query = { ...params };
-  requireParam(query, "socialstats_creator_id");
+  requireAnyIdentifier(query, CREATOR_IDENTIFIER_KEYS);
   return query;
 }
 

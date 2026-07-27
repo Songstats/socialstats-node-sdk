@@ -1,10 +1,10 @@
-import { ResourceAPI, requireAnyIdentifier, requireParam } from "./base.js";
+import { CREATOR_IDENTIFIER_KEYS, ResourceAPI, requireAnyIdentifier, requireParam } from "./base.js";
 
 const POST_IDENTIFIER_KEYS = ["post_id", "id_unique", "external_id"];
 
 function withPostIdentifier(params = {}) {
   const query = { ...params };
-  requireParam(query, "socialstats_creator_id");
+  requireAnyIdentifier(query, CREATOR_IDENTIFIER_KEYS);
   requireParam(query, "source_id");
   requireAnyIdentifier(query, POST_IDENTIFIER_KEYS);
   return query;

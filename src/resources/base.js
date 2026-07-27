@@ -1,3 +1,11 @@
+export const CREATOR_IDENTIFIER_KEYS = [
+  "socialstats_creator_id",
+  "instagram_creator_id",
+  "facebook_creator_id",
+  "youtube_creator_id",
+  "tiktok_creator_id",
+];
+
 function normalizeValue(value) {
   if (typeof value === "boolean") {
     return value ? "true" : "false";

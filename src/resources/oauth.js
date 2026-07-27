@@ -1,9 +1,9 @@
-import { ResourceAPI, requireParam } from "./base.js";
+import { CREATOR_IDENTIFIER_KEYS, ResourceAPI, requireAnyIdentifier, requireParam } from "./base.js";
 
 export class OAuthAPI extends ResourceAPI {
   create(params = {}) {
     const query = { ...params };
-    requireParam(query, "socialstats_creator_id");
+    requireAnyIdentifier(query, CREATOR_IDENTIFIER_KEYS);
     requireParam(query, "source_id");
     return this._post("oauth", { params: query });
   }
