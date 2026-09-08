@@ -72,7 +72,7 @@ export class SocialstatsHTTPClient {
     timeoutMs = DEFAULT_TIMEOUT_MS,
     maxRetries = 2,
     fetchImpl,
-    userAgent = "socialstats-node-sdk/0.1.0",
+    userAgent = "socialstats-node-sdk/0.2.0",
   } = {}) {
     if (!apiKey) {
       throw new Error("apiKey is required");
