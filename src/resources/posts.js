@@ -10,27 +10,29 @@ function withPostIdentifier(params = {}) {
   return query;
 }
 
-function authorizedPath(params, action) {
+function postPath(params, action, authorized = false) {
   const sourceId = params.source_id;
-  return `posts/authorized/${encodeURIComponent(sourceId)}/${action}`;
+  return `posts/${authorized ? "authorized/" : ""}${encodeURIComponent(sourceId)}/${action}`;
 }
 
 export class PostsAPI extends ResourceAPI {
   stats(params = {}) {
-    return this._get("posts/stats", { params: withPostIdentifier(params) });
+    const query = withPostIdentifier(params);
+    return this._get(postPath(query, "stats"), { params: query });
   }
 
   historicStats(params = {}) {
-    return this._get("posts/historic_stats", { params: withPostIdentifier(params) });
+    const query = withPostIdentifier(params);
+    return this._get(postPath(query, "historic_stats"), { params: query });
   }
 
   authorizedStats(params = {}) {
     const query = withPostIdentifier(params);
-    return this._get(authorizedPath(query, "stats"), { params: query });
+    return this._get(postPath(query, "stats", true), { params: query });
   }
 
   authorizedHistoricStats(params = {}) {
     const query = withPostIdentifier(params);
-    return this._get(authorizedPath(query, "historic_stats"), { params: query });
+    return this._get(postPath(query, "historic_stats", true), { params: query });
   }
 }
