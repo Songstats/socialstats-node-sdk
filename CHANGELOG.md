@@ -9,6 +9,8 @@ All notable changes to this project are documented in this file.
 - Route public post statistics through the source-specific API paths instead of nonexistent generic post endpoints.
 - Retry only GET and HEAD requests; ambiguous write failures are surfaced after one attempt.
 
+## [0.2.0] - 2026-09-08
+
 ### Added
 
 - OAuth authorization lifecycle resource coverage
