@@ -101,6 +101,8 @@ export class SocialstatsHTTPClient {
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt += 1) {
       let response;
+      let payload;
+      let transportFailed = false;
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), this.timeoutMs);
 
@@ -118,30 +120,37 @@ export class SocialstatsHTTPClient {
       try {
         response = await this.fetchImpl(url, {
           method,
+          redirect: "error",
           signal: controller.signal,
           headers: requestHeaders,
           body: json ? JSON.stringify(json) : undefined,
         });
-      } catch (error) {
-        lastError = error;
-        clearTimeout(timeoutId);
 
+        if (RETRYABLE_STATUS_CODES.has(response.status) && attempt < this.maxRetries) {
+          await response.body?.cancel();
+        } else {
+          payload = await parseResponse(response);
+        }
+      } catch (error) {
+        transportFailed = true;
+        lastError = error;
+      } finally {
+        clearTimeout(timeoutId);
+      }
+
+      if (transportFailed) {
         if (attempt < this.maxRetries) {
           await sleep(200 * 2 ** attempt);
           continue;
         }
 
-        throw new SocialstatsTransportError(String(error?.message || error), error);
+        throw new SocialstatsTransportError(String(lastError?.message || lastError), lastError);
       }
-
-      clearTimeout(timeoutId);
 
       if (RETRYABLE_STATUS_CODES.has(response.status) && attempt < this.maxRetries) {
         await sleep(200 * 2 ** attempt);
         continue;
       }
-
-      const payload = await parseResponse(response);
 
       if (response.status >= 200 && response.status <= 299) {
         return payload;
