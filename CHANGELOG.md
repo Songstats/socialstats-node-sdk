@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Fixed
+
+- Retry only GET and HEAD requests; ambiguous write failures are surfaced after one attempt.
+
 ### Added
 
 - OAuth authorization lifecycle resource coverage
