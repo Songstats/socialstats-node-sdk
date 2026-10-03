@@ -29,10 +29,6 @@ Authentication observed in Rails: `apikey` request header.
 | GET    | `/audience/details`   | `client.creators.audienceDetails({ country_code, ... })`  |
 | GET    | `/activities`         | `client.creators.activities({...})`                       |
 | GET    | `/content`            | `client.creators.content({...})`                          |
-| GET    | `/authorized/stats`   | `client.creators.authorizedStats({...})`                  |
-| GET    | `/authorized/historic_stats` | `client.creators.authorizedHistoricStats({...})`   |
-| GET    | `/authorized/audience` | `client.creators.authorizedAudience({...})`              |
-| GET    | `/authorized/content` | `client.creators.authorizedContent({...})`                |
 | GET    | `/top_posts`          | `client.creators.topPosts({...})`                         |
 | GET    | `/search`             | `client.creators.search({ q, ... })`                      |
 | POST   | `/link_request`       | `client.creators.addLinkRequest({ link, ... })`           |
@@ -46,8 +42,6 @@ Creator-scoped methods require one creator identifier: `socialstats_creator_id`,
 | ---- | ----------------- | ------------------------------------- |
 | GET  | `/:source_id/stats`          | `client.posts.stats({...})`           |
 | GET  | `/:source_id/historic_stats` | `client.posts.historicStats({...})`   |
-| GET  | `/authorized/:source_id/stats` | `client.posts.authorizedStats({...})` |
-| GET  | `/authorized/:source_id/historic_stats` | `client.posts.authorizedHistoricStats({...})` |
 
 Post methods require one creator identifier, `source_id`, and one of `post_id`, `id_unique`, or `external_id`.
 
@@ -60,3 +54,5 @@ Post methods require one creator identifier, `source_id`, and one of `post_id`, 
 | GET    | `/oauth/:id`                   | `client.oauth.get(id)`                   |
 | DELETE | `/oauth/:id`                   | `client.oauth.revoke(id)`                |
 | GET    | `/oauth-attempts/:state_token` | `client.oauth.attemptStatus(stateToken)` |
+
+Regular analytics use automatic channel access; the retained legacy methods are compatibility aliases. Pass `data_access=public` for public data only.

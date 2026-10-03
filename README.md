@@ -7,6 +7,25 @@ API Key Access: Please contact api@socialstats.com
 
 ---
 
+## Automatic Data Access
+
+Regular creator and post analytics automatically use this key's existing channel
+connections. Member keys reuse dashboard connections; Enterprise keys use their
+own authorization grants. Public data is returned where supported when no valid
+connection exists. Pass `data_access` as `"public"` to exclude connected-account
+insights, or omit it for the default `"auto"` behavior.
+
+Inspect `data_access_used` (`public` or `authorized`) per source or post.
+`is_authorized` and `authorization_status` describe the connection independently
+of the selected dataset. Connected-account fields are optional; missing values
+are not zero. Facebook posts and Instagram stories require owner channel
+authorization. Without it or in public mode, lists omit these posts and post-detail
+reads return 403. Public posts from other profiles remain available.
+
+Existing authorized SDK methods remain compatible aliases. New integrations
+should use the regular methods shown below. Analytics methods forward `data_access`
+without a package upgrade.
+
 ## Requirements
 
 - Node.js >= 18
